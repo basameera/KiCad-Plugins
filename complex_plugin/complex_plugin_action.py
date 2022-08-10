@@ -1,6 +1,7 @@
 import pcbnew
 import os
-
+import datetime
+import re
 
 class ComplexPluginAction(pcbnew.ActionPlugin):
     def defaults(self):
@@ -12,5 +13,10 @@ class ComplexPluginAction(pcbnew.ActionPlugin):
             os.path.dirname(__file__), 'icon.png')  # Optional
 
     def Run(self):
-        # The entry function of the plugin that is executed on user action
-        print("Hello World")
+        pcb = pcbnew.GetBoard()
+        for draw in pcb.GetDrawings():
+            if draw.GetClass() == 'PTEXT':
+                txt = re.sub("\$date\$ [0-9]{4}-[0-9]{2}-[0-9]{2}",
+                             "$date$", draw.GetText())
+                if txt == "$date$":
+                    draw.SetText("%s" % datetime.date.today())
