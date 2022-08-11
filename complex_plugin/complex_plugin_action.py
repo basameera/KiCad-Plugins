@@ -40,18 +40,18 @@ class MyFrame(wx.Frame):
     '''https://docs.wxwidgets.org/2.8.12/wx_stdevtid.html'''
 
     def __init__(self, parent, title):
-        height = 800
-        width = 1000
+        height = 600
+        width = 800
         height_half = height//2
         width_half = width//2
 
-        wx.Frame.__init__(self, parent, title=title, size=(width, height))
+        wx.Frame.__init__(self, parent, title=title, size=(width, height), style=wx.DEFAULT_FRAME_STYLE ^ wx.RESIZE_BORDER)
 
         # add panel
         self.panel = wx.Panel(self, wx.ID_ANY, pos=(0, 0),
-                              size=(width_half, height), style=wx.SIMPLE_BORDER)
+                              size=(width_half, height))
         panel1 = wx.Panel(self, wx.ID_ANY, pos=(width_half, 0),
-                          size=(width_half, height), style=wx.SIMPLE_BORDER)
+                          size=(width_half, height))
 
         # add button
         button = wx.Button(self.panel, wx.ID_ANY, 'About', (10, 200))
